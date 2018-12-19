@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import {connect} from 'react-redux'
+import {Button} from 'antd-mobile'
+import {addGUN,removeGUN,addGunAsync} from "./index.redux";
 import './App.css';
 
+
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+    render() {
+        return (
+             <div>
+                 <h1>现在有机关枪{this.props.num}</h1>
+                 <button onClick={this.props.addGUN}>申请武器</button>
+                 <button onClick={this.props.removeGUN}>上交武器</button>
+                 <button onClick={this.props.addGunAsync}>延迟两天上交武器</button>
+             </div>
+
+
+        )
+    }
 }
 
+const mapStateProps=(state)=>{
+    return {num:state}
+}
+
+const actionCreators = {addGUN,removeGUN,addGunAsync}
+App = connect(mapStateProps,actionCreators)(App)
 export default App;
